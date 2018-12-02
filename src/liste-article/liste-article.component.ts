@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { ArticleService } from 'src/services/article.service';
 import { ToastrService } from 'ngx-toastr';
 
@@ -9,10 +9,17 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ListeArticleComponent implements OnInit {
 
+  @Output()
+  private sendingArticle = new EventEmitter();
+  
+
+
+
   articles:any;
   currentPage:number=0;
   size:number=1;
   pages:Array<number>;
+  uploadFolder = "http://localhost:7070/images";
   constructor(private articleService:ArticleService,private toasterService : ToastrService) { }
 
   ngOnInit() {
@@ -42,6 +49,10 @@ deleteArticle(id){
     this.Load();
   }); 
   
+}
+
+sendingArticleToEdit(article){
+    this.articleService.article$=article;
 }
 
 }

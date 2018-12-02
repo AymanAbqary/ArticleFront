@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Article } from 'src/entities/article';
 import { HttpRequest } from 'selenium-webdriver/http';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,9 @@ export class ArticleService {
 
   private BASE_URL="http://localhost:7070";
   private BASE_ARTICLE="/api/articles";
+
+  private articleSource=new Subject<any>();
+public article$=this.articleSource.asObservable();
 
   constructor(private http:HttpClient) { }
 
@@ -25,8 +29,11 @@ export class ArticleService {
 
   public saveOrUpdate(article:Article,file:File){
     const formData:FormData = new FormData();
-    formData.append('article', JSON.stringify(article))
-  
+    //formData.append('article', JSON.stringify(article))
+    formData.append('article', new Blob([JSON.stringify(article)], {
+      type: 'application/json'
+    }));
+
     formData.append('img', file,file.name);
     //const req=new HttpRequest('POST', this.BASE_URL+this.BASE_ARTICLE+"/", formData);
     //return this.http.request(req);

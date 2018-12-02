@@ -37,9 +37,9 @@
         <tr *ngFor="let article of articles">
             <td>{{article.nom}}</td>
             <td> {{article.text}}</td>
-            <td> <img src="{{article.img}}" class="img-circle" width="150px" height="100px"/></td>
+            <td> <img src="{{uploadFolder+article.img}}" class="img-circle" width="150px" height="100px"/></td>
             <td> 
-              <button class="btn btn-primary"> Edit</button>
+              <button class="btn btn-primary" (click)="sendingArticleToEdit(article)" routerLink="/edit"> Edit</button>
               <button class="btn btn-danger" (click)="deleteArticle(article.id)"> Delete</button>
             </td>
          </tr>
