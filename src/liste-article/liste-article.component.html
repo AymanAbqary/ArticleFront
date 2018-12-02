@@ -1,0 +1,61 @@
+<br/>
+<div class="panel panel-primary">
+
+  <div class="panel-heading">
+    Contact Information
+  </div>
+  <div class="panel-body">
+    
+    <div class="form-group col-xs-6 col-md-4">
+      <label class="sr-only" for="">Mot cle</label>
+      <input type="text" class="form-control" id="" [(ngModel)]="motRecherche" placeholder="Mot cle">
+      
+      <button (click)="getContatctsRechercher()" class="btn btn-primary">Rechercher</button>
+    </div>
+    <div class="form-group col-xs-6 col-md-4">
+          <label>Size</label>
+      <select name="size" id="" class="form-control" [(ngModel)]="size" (change)="valueChange()">
+      <option [ngValue]="5"> 5</option>
+      <option [ngValue]="10"> 10</option>
+      <option [ngValue]="15"> 15</option>
+      <option [ngValue]="20"> 20</option>
+    </select>
+  </div>
+
+    <div>
+     <table class="table table-hover table-border" >
+       <thead>
+       <tr>
+         <th>Nom : </th>
+         <th> Text : </th>
+         <th> Image : </th>
+         <th> action : </th>
+      </tr>
+    </thead>
+
+    <tbody>
+        <tr *ngFor="let article of articles">
+            <td>{{article.nom}}</td>
+            <td> {{article.text}}</td>
+            <td> <img src="{{article.img}}" class="img-circle" width="150px" height="100px"/></td>
+            <td> 
+              <button class="btn btn-primary"> Edit</button>
+              <button class="btn btn-danger" (click)="deleteArticle(article.id)"> Delete</button>
+            </td>
+         </tr>
+    </tbody>
+     </table>
+      <div class="container" >
+        
+        <ul class="nav nav-pills">
+          <li  [ngClass]="{'active': i==currentPage}" *ngFor="let p of pages,let i=index" > 
+            <a class="clickable" (click)="goTopage(i)">{{i+1}}</a></li>
+        </ul>
+        
+      </div>
+
+      
+      
+    </div>
+  </div>
+</div>
