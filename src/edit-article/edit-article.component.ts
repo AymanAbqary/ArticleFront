@@ -30,17 +30,22 @@ if(this.art){
 this.article.id=this.art.id;
 this.article.nom=this.art.nom
 this.article.text=this.art.text;
-this.article.img=this.art.img;
+//this.article.img=this.art.img;
 }
 
   }
   save(){
     console.log(this.article);
-    this.articleService.saveOrUpdate(this.article,this.selectedFile).subscribe(data=>{
-      console.log(data);  
-      this.toastrService.success("Opération avec succes");
-      this.router.navigate([`/articles/`]);
-    })
+    if(this.validate()){
+      this.articleService.saveOrUpdate(this.article,this.selectedFile).subscribe(data=>{
+        console.log(data);  
+        this.toastrService.success("Opération avec succes");
+        this.router.navigate([`/articles/`]);
+      })
+    }else{
+      this.toastrService.error("veuillez remplire les champs");
+    }
+    
   }
 
   onSelectedFile(event){
@@ -51,4 +56,7 @@ this.article.img=this.art.img;
     console.log("image nom", this.selectedFile.name);
   }
 
+  validate(){
+    return this.article.img && this.article.nom && this.article.text;
+  }
 }
